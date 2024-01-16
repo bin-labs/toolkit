@@ -1,11 +1,4 @@
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle
-} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {ToolGroupData} from "@/components/tool/Tool";
@@ -65,13 +58,11 @@ export function UserToolGroupDialog({data}: UserToolGroupDialogProps) {
 				<DialogHeader>
 					<DialogTitle>Create a Group</DialogTitle>
 				</DialogHeader>
-				<DialogDescription>
-					<div className="flex items-center gap-4">
-						<span>Group name: </span>
-						<Input className="flex-1" placeholder="group name" value={group.name}
-						       onChange={(e) => setGroup({...group, ...{name: e.target.value}})}/>
-					</div>
-				</DialogDescription>
+				<div className="flex items-center gap-4">
+					<span>Group name: </span>
+					<Input className="flex-1" placeholder="group name" value={group.name}
+					       onChange={(e) => setGroup({...group, ...{name: e.target.value}})}/>
+				</div>
 				<DialogFooter>
 					<Button variant="outline" onClick={() => setOpen(false)}>{t("Cancel")}</Button>
 					<Button disabled={group.name === ""}

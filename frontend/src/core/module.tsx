@@ -1,5 +1,5 @@
 import {Tool} from "./tool";
-import {ReactNode} from "react";
+import {RouteObject} from "react-router-dom";
 
 export type ModuleContext = {
 	modules: IModule[],
@@ -7,7 +7,7 @@ export type ModuleContext = {
 
 export interface IModule {
 	tools: Tool[];
-	routes: ReactNode[]
+	routes: RouteObject[]
 	init?: (ctx: ModuleContext) => void
 }
 
@@ -20,13 +20,13 @@ export type ModuleData = Omit<IModule, "tools"> & {
 }
 
 export function parseModules(): ModuleData[] {
-	const modules = import.meta.glob("@/modules/*/index.tsx", {eager: true});
+	const modules = import.meta.glob("@/modules/*/index.tsx", {import: "default", eager: true});
 
 	const result: ModuleData[] = [];
 	for (const path in modules) {
 		const paths = path.split("/")
 		const moduleName = paths[paths.length - 2]
-		const data = (modules[path] as any).default as IModule;
+		const data = modules[path] as IModule;
 		const module: any = {
 			...data,
 			...{

@@ -40,6 +40,8 @@ export function UserToolItem(props: ToolItemProps) {
 	const removeTool = useRemoveToolFromGroup()
 	const goTool = useGoTool()
 
+	const {t} = useTranslation()
+
 	const items: MenuItemData[] = [
 		{
 			content: "Open in a new window",
@@ -56,10 +58,10 @@ export function UserToolItem(props: ToolItemProps) {
 	return (
 		<DataMenu items={items} disabled={props.menuDisabled}>
 			<div
-				className={cn("px-4 py-1 cursor-default hover:bg-slate-400", props.className)}
+				className={cn("px-4 py-1 cursor-default hover:bg-accent hover:text-accent-foreground", props.className)}
 				onClick={() => props.onClick ? props.onClick(props) : goTool(props)}
 			>
-				{props.displayName ?? props.name}
+				{t(props.name, {ns: props.module})}
 			</div>
 		</DataMenu>
 	);
@@ -106,7 +108,7 @@ export function UserToolGroup(props: UserToolGroupProps) {
 			>
 				<CollapsibleTrigger asChild>
 					<div
-						className="flex items-center px-2 py-1 cursor-default hover:bg-slate-400"
+						className="flex items-center px-2 py-1 cursor-default hover:bg-accent hover:text-accent-foreground"
 						onClick={() => props.onClick?.(props) || goto(props.url)}
 					>
 						<span className="flex-1">{props.name}</span>

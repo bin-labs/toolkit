@@ -19,8 +19,6 @@ export function useAllTools() {
 					...tool,
 					...{
 						module: m.name,
-						displayName: t(tool.name, {ns: m.name}),
-						description: tool.description ? t(tool.description, {ns: m.name}) : ""
 					}
 				}
 				;

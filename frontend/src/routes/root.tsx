@@ -1,34 +1,39 @@
-import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
+import {createBrowserRouter, RouteObject, RouterProvider} from "react-router-dom";
+import {ModuleData} from "@/core";
+import {useApp} from "@/context";
 import {Layout} from "@/layout";
 import {Home} from "@/pages/tool";
 import {AllTools} from "@/pages/tool/AllTools";
-import {ModuleData} from "@/core";
-import {useApp} from "@/context";
 
-function RootRoute(modules: ModuleData[]) {
+function RootRoute(modules: ModuleData[]): RouteObject[] {
 	const parseRoutes = (ms: ModuleData[]) => {
 		return ms.map(m => (
-			<Route path={m.name}>
-				{m.routes}
-			</Route>
+			{
+				path: m.name,
+				children: m.routes,
+			}
 		))
 	}
 
-	return (
-		<Routes>
-			<Route element={<Layout/>}>
-				<Route path="all" element={<AllTools/>}/>
-				{parseRoutes(modules)}
-				<Route path="" element={<Home/>}/>
-				{/* <Route path="404" element={<NotFound />} /> */}
-			</Route>
-		</Routes>
-	)
+	return [
+		{
+			element: <Layout/>,
+			children: [
+				{
+					path: "",
+					element: (<Home/>),
+				},
+				{
+					path: "all",
+					element: (<AllTools/>),
+				},
+				...parseRoutes(modules)]
+		}
+	]
 }
-
 
 export function Root() {
 	const {modules} = useApp()
-	const router = createBrowserRouter([{path: '*', element: RootRoute(modules)}])
+	const router = createBrowserRouter(RootRoute(modules))
 	return <RouterProvider router={router}/>
 }

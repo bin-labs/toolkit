@@ -37,18 +37,18 @@ export function AllTools() {
 		<h1 className="text-2xl py-4">{t("All tools")}</h1>
 		<div className="flex flex-wrap gap-2">
 			{Object.values(tools).map(tool => (
-				<ContextMenu>
+				<ContextMenu key={tool.name}>
 					<ContextMenuTrigger>
 						<Card className="p-4 flex flex-col gap-4 max-w-[400px] cursor-default"
 						      onClick={() => go(tool)}>
 							<div className="flex items-center">
 								{tool.icon ? <div className="w-[24px] h-[24px]">{tool.icon}</div> : null}
-								<div className="font-bold">{tool.displayName}</div>
+								<div className="font-bold">{t(tool.name, {ns: tool.module})}</div>
 							</div>
-							<p className="flex-1">{tool.description}</p>
-							<div>
+							<p className="flex-1">{t(tool.description ?? "", {ns: tool.module})}</p>
+							<div className="flex flex-wrap gap-2">
 								{tool.tags?.map(tag => (
-									<Badge key={tag}>{tag}</Badge>
+									<Badge key={tag}>{t(tag)}</Badge>
 								))}
 							</div>
 						</Card>

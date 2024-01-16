@@ -44,12 +44,11 @@ export function mergeResources(...resources: Resource[]): Resource {
 
 function usei18n() {
 	const resources = parseLocalesDir()
-	console.log("resources", resources)
 	i18n
 		.use(initReactI18next) // passes i18n down to react-i18next
 		.init({
 			resources,
-			lng: "en",
+			lng: "zh",
 			interpolation: {
 				escapeValue: false // react already safes from xss
 			}

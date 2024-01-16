@@ -1,17 +1,32 @@
 import {IModule} from "@/core";
 import {TextCaseConverter} from "@/modules/text/convert/TextCaseConverter";
-import {Route} from "react-router-dom";
 import React from "react";
+import {PinyinConverter} from "@/modules/text/convert/PinyinConverter";
 
-export const textConverter = "text.converter"
+export const textConverter = "text.converter";
+export const pinyinConverter = "text.pinyin";
 
 export function addConverters(m: IModule) {
-	m.tools.push({
-		name: textConverter,
-		description: "this is a description",
-		tags: ["converter"],
-	})
+	m.tools.push(
+		{
+			name: textConverter,
+			description: "this is a description",
+			tags: ["converter"],
+		},
+		{
+			name: pinyinConverter,
+			description: "convert text to pinyin",
+			tags: ["converter", "pinyin"],
+		},
+	)
 	m.routes.push(
-		<Route path={textConverter} element={<TextCaseConverter/>}/>
+		{
+			path: textConverter,
+			element: <TextCaseConverter/>,
+		},
+		{
+			path: pinyinConverter,
+			element: <PinyinConverter/>,
+		}
 	)
 }

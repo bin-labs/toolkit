@@ -57,8 +57,7 @@ export function Layout() {
 			<DataMenu items={menuItems}>
 				<div className="w-[300px] p-4 overflow-auto">
 					<UserToolItem className="px-2" name="All tools" menuDisabled={true} group="all" module=""
-					              url="/all"
-					              displayName={t("All tools")}/>
+					              url="/all"/>
 					{userTools.map((g) => (
 						<UserToolGroup key={g.name} {...g} onEdit={g => openGroupDialog(g)}/>
 					))}
