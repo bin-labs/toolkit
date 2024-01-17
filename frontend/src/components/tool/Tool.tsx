@@ -65,9 +65,10 @@ export function UserToolItem(props: ToolItemProps) {
 	return (
 		<DataMenu items={items} disabled={props.menuDisabled}>
 			<div
-				className={cn("px-6 py-2 cursor-default hover:bg-accent hover:text-accent-foreground", selectedClassName, props.className)}
+				className={cn("px-6 py-2 cursor-default hover:bg-accent hover:text-accent-foreground flex items-center gap-1", selectedClassName, props.className)}
 				onClick={() => props.onClick ? props.onClick(props) : goTool(props)}
 			>
+				{props.icon}
 				{t(props.name, {ns: props.module})}
 			</div>
 		</DataMenu>

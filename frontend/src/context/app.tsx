@@ -19,7 +19,7 @@ const initState: AppState = {
 
 const AppProviderContext = createContext<AppState>(initState);
 
-export const AppContextProvider = ({children,}: {
+export const AppContextProvider = ({children}: {
 	children: ReactElement;
 }) => {
 	const modules = useMemo(() => parseModules(), []);
@@ -48,7 +48,7 @@ export const AppContextProvider = ({children,}: {
 	};
 	return (
 		<AppProviderContext.Provider value={value}>
-			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+			<ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
 				{children}
 			</ThemeProvider>
 		</AppProviderContext.Provider>

@@ -20,7 +20,7 @@ export function UserToolGroupDialog({data}: UserToolGroupDialogProps) {
 	const {t} = useTranslation()
 	const {userTools, setUserTools} = useApp()
 
-	const [open, setOpen] = useState(true)
+	const [open, setOpen] = useState(false)
 	const [group, setGroup] = useState<ToolGroupData>({name: "", tools: []})
 
 	const submit = () => {

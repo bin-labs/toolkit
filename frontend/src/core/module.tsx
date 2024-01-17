@@ -53,3 +53,4 @@ export function createModule(...configures: ModuleConfigure[]): IModule {
 	})
 	return res
 }
+

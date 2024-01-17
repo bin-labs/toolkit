@@ -1,6 +1,9 @@
 import {createModule} from "@/core"
-import {addConverters} from "@/modules/text/convert";
+import {getConverters} from "@/modules/text/convert";
+import {addTools} from "@/lib/module";
 
 export default createModule(
-	addConverters,
+	m => {
+		addTools(m, ...getConverters())
+	}
 )

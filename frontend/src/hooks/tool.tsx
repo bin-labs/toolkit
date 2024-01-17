@@ -8,9 +8,7 @@ export function useAllTools() {
 	const {modules} = useApp();
 	const {t} = useTranslation()
 	return useMemo(() => {
-		const result: {
-			[key: string]: ModuleToolData
-		} = {};
+		const result: { [key: string]: ModuleToolData } = {};
 		modules.forEach((m) => {
 			m.tools.forEach((tool) => {
 				if (result[tool.name] !== undefined) {
@@ -18,11 +16,8 @@ export function useAllTools() {
 				}
 				result[tool.name] = {
 					...tool,
-					...{
-						module: m.name,
-					}
+					module: m.name,
 				}
-				;
 			});
 		});
 		return result;
