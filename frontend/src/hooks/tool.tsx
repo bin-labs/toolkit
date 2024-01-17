@@ -1,6 +1,6 @@
 import {useApp} from "@/context";
 import {ModuleToolData} from "@/core";
-import {useEffect, useMemo, useState} from "react";
+import {useMemo} from "react";
 import {useTranslation} from "react-i18next";
 import {useLocation, useSearchParams} from "react-router-dom";
 
@@ -62,24 +62,20 @@ export type CurrentUserTool = {
 }
 
 export function useCurrent() {
-	const [current, setCurrent] = useState<CurrentUserTool>()
-
 	const location = useLocation()
 	const [query] = useSearchParams()
 
-	useEffect(() => {
+	const current: CurrentUserTool | undefined = useMemo(() => {
 		if (location.pathname.startsWith("/tool/")) {
 			const paths = location.pathname.split("/")
-			const tn = paths[2]
-			const g = query.get("group")
-			if (tn) {
-				setCurrent({
-					toolName: tn,
-					group: g,
-				})
+			const toolName = paths[2]
+			const group = query.get("group")
+			if (toolName) {
+				return {toolName, group}
+			} else {
+				return
 			}
 		}
-	}, [location.pathname, query]);
-
+	}, [location.pathname, query])
 	return current
 }

@@ -1,5 +1,5 @@
 import {ToolGroupData, UserToolGroup, UserToolItem} from "@/components/tool";
-import {useAllTools} from "@/hooks/tool";
+import {useAllTools, useCurrent} from "@/hooks/tool";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Outlet, useNavigate} from "react-router-dom";
@@ -16,6 +16,7 @@ export function Layout() {
 	const allTools = useAllTools();
 	const {t} = useTranslation();
 	const navigate = useNavigate()
+	const current = useCurrent()
 
 	const menuItems: MenuItemData[] = [
 		{
@@ -56,9 +57,9 @@ export function Layout() {
 		<div className="flex w-full h-full">
 			<DataMenu items={menuItems}>
 				<div className="w-[300px] overflow-auto">
-					<UserToolItem className="px-4" name="all" menuDisabled={true} group="all" module=""/>
+					<UserToolItem selectedTool={current} className="px-4" name="all" menuDisabled={true} group="all" module=""/>
 					{userTools.map((g) => (
-						<UserToolGroup key={g.name} {...g} onEdit={g => openGroupDialog(g)}/>
+						<UserToolGroup key={g.name} {...g} onEdit={g => openGroupDialog(g)} selectedTool={current}/>
 					))}
 				</div>
 			</DataMenu>

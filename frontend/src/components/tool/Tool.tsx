@@ -4,7 +4,7 @@ import React, {useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import {cn} from "@/lib/utils";
 import {DataMenu, MenuItemData} from "@/components/data-menu";
-import {useCurrent, useDeleteGroup, useRemoveToolFromGroup} from "@/hooks/tool";
+import {CurrentUserTool, useDeleteGroup, useRemoveToolFromGroup} from "@/hooks/tool";
 import {useTranslation} from "react-i18next";
 import {ModuleToolData} from "@/core";
 
@@ -22,11 +22,12 @@ export type ToolGroupData = {
 export type ToolItemProps = UserTool & {
 	className?: string
 	menuDisabled?: boolean
+	selectedTool?: CurrentUserTool
 }
 
 export function useGoTool() {
 	const navigate = useNavigate();
-	return (tool: UserTool) => {
+	return (tool: Partial<UserTool>) => {
 		let url = tool.url
 		if (!url) {
 			url = `/tool/${tool.name}?group=${tool.group}`
@@ -38,16 +39,15 @@ export function useGoTool() {
 export function UserToolItem(props: ToolItemProps) {
 	const removeTool = useRemoveToolFromGroup()
 	const goTool = useGoTool()
-	const current = useCurrent()
 
 	const {t} = useTranslation()
 
 	const selectedClassName = useMemo(() => {
-		if (current && current.toolName === props.name && current.group === props.group) {
+		if (props.selectedTool && props.selectedTool.toolName === props.name && props.selectedTool.group === props.group) {
 			return "bg-accent text-accent-foreground"
 		}
 		return ""
-	}, [current])
+	}, [props.selectedTool])
 
 	const items: MenuItemData[] = [
 		{
@@ -76,6 +76,7 @@ export function UserToolItem(props: ToolItemProps) {
 
 
 export type UserToolGroupProps = ToolGroupData & {
+	selectedTool?: CurrentUserTool
 	onEdit?: (g: ToolGroupData) => void
 }
 
@@ -127,7 +128,7 @@ export function UserToolGroup(props: UserToolGroupProps) {
 				</CollapsibleTrigger>
 				<CollapsibleContent className="flex flex-col">
 					{props.tools.map((t) => (
-						<UserToolItem key={t.name} {...t} />
+						<UserToolItem key={t.name} {...t} selectedTool={props.selectedTool}/>
 					))}
 				</CollapsibleContent>
 			</Collapsible>
