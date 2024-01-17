@@ -5,7 +5,6 @@ import {ToolGroupData} from "@/components/tool";
 import {SaveTools} from "wails/go/settings/Settings";
 import {settings} from "wails/go/models";
 
-
 export type AppState = {
 	modules: ModuleData[];
 	userTools: ToolGroupData[];

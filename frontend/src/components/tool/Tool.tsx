@@ -1,10 +1,10 @@
 import {Collapsible, CollapsibleContent, CollapsibleTrigger,} from "@/components/ui/collapsible";
 import {ChevronDownIcon, ChevronUpIcon} from "@radix-ui/react-icons";
-import React from "react";
+import React, {useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import {cn} from "@/lib/utils";
 import {DataMenu, MenuItemData} from "@/components/data-menu";
-import {useDeleteGroup, useRemoveToolFromGroup} from "@/hooks/tool";
+import {useCurrent, useDeleteGroup, useRemoveToolFromGroup} from "@/hooks/tool";
 import {useTranslation} from "react-i18next";
 import {ModuleToolData} from "@/core";
 
@@ -26,12 +26,11 @@ export type ToolItemProps = UserTool & {
 
 export function useGoTool() {
 	const navigate = useNavigate();
-	return (tool: ModuleToolData) => {
+	return (tool: UserTool) => {
 		let url = tool.url
 		if (!url) {
-			url = `/${tool.module}/${tool.name}`
+			url = `/tool/${tool.name}?group=${tool.group}`
 		}
-		console.log(url)
 		navigate(url);
 	}
 }
@@ -39,8 +38,16 @@ export function useGoTool() {
 export function UserToolItem(props: ToolItemProps) {
 	const removeTool = useRemoveToolFromGroup()
 	const goTool = useGoTool()
+	const current = useCurrent()
 
 	const {t} = useTranslation()
+
+	const selectedClassName = useMemo(() => {
+		if (current && current.toolName === props.name && current.group === props.group) {
+			return "bg-accent text-accent-foreground"
+		}
+		return ""
+	}, [current])
 
 	const items: MenuItemData[] = [
 		{
@@ -58,7 +65,7 @@ export function UserToolItem(props: ToolItemProps) {
 	return (
 		<DataMenu items={items} disabled={props.menuDisabled}>
 			<div
-				className={cn("px-4 py-1 cursor-default hover:bg-accent hover:text-accent-foreground", props.className)}
+				className={cn("px-6 py-2 cursor-default hover:bg-accent hover:text-accent-foreground", selectedClassName, props.className)}
 				onClick={() => props.onClick ? props.onClick(props) : goTool(props)}
 			>
 				{t(props.name, {ns: props.module})}
@@ -102,13 +109,12 @@ export function UserToolGroup(props: UserToolGroupProps) {
 	return (
 		<DataMenu items={items}>
 			<Collapsible
-				className="space-y-2"
 				open={open}
 				onOpenChange={(o) => setOpen(o)}
 			>
 				<CollapsibleTrigger asChild>
 					<div
-						className="flex items-center px-2 py-1 cursor-default hover:bg-accent hover:text-accent-foreground"
+						className="flex py-2 items-center px-4 cursor-default hover:bg-accent hover:text-accent-foreground"
 						onClick={() => props.onClick?.(props) || goto(props.url)}
 					>
 						<span className="flex-1">{props.name}</span>
@@ -119,7 +125,7 @@ export function UserToolGroup(props: UserToolGroupProps) {
 						)}
 					</div>
 				</CollapsibleTrigger>
-				<CollapsibleContent className="space-y-2 flex flex-col">
+				<CollapsibleContent className="flex flex-col">
 					{props.tools.map((t) => (
 						<UserToolItem key={t.name} {...t} />
 					))}

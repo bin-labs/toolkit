@@ -1,5 +1,5 @@
 const en = {
-	"All tools": "All tools",
+	"all": "All tools",
 }
 
 export default en;

@@ -1,7 +1,8 @@
 import {useApp} from "@/context";
 import {ModuleToolData} from "@/core";
-import {useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useLocation, useSearchParams} from "react-router-dom";
 
 export function useAllTools() {
 	const {modules} = useApp();
@@ -53,4 +54,32 @@ export function useDeleteGroup() {
 	return (groupName: string) => {
 		setUserTools(userTools.filter(g => g.name !== groupName))
 	}
+}
+
+export type CurrentUserTool = {
+	toolName: string
+	group: string | null
+}
+
+export function useCurrent() {
+	const [current, setCurrent] = useState<CurrentUserTool>()
+
+	const location = useLocation()
+	const [query] = useSearchParams()
+
+	useEffect(() => {
+		if (location.pathname.startsWith("/tool/")) {
+			const paths = location.pathname.split("/")
+			const tn = paths[2]
+			const g = query.get("group")
+			if (tn) {
+				setCurrent({
+					toolName: tn,
+					group: g,
+				})
+			}
+		}
+	}, [location.pathname, query]);
+
+	return current
 }

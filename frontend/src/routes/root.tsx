@@ -7,12 +7,7 @@ import {AllTools} from "@/pages/tool/AllTools";
 
 function RootRoute(modules: ModuleData[]): RouteObject[] {
 	const parseRoutes = (ms: ModuleData[]) => {
-		return ms.map(m => (
-			{
-				path: m.name,
-				children: m.routes,
-			}
-		))
+		return ms.flatMap(m => m.routes)
 	}
 
 	return [
@@ -24,10 +19,16 @@ function RootRoute(modules: ModuleData[]): RouteObject[] {
 					element: (<Home/>),
 				},
 				{
-					path: "all",
-					element: (<AllTools/>),
+					path: "tool",
+					children: [
+						{
+							path: "all",
+							element: (<AllTools/>),
+						},
+						...parseRoutes(modules)
+					],
 				},
-				...parseRoutes(modules)]
+			]
 		}
 	]
 }
