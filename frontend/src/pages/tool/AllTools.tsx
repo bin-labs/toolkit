@@ -34,18 +34,18 @@ export function AllTools() {
 	}
 
 	return (<div>
-		<h1 className="text-2xl py-4">{t("all")}</h1>
+		<h1 className="text-2xl pb-4">{t("all")}</h1>
 		<div className="flex flex-wrap gap-2">
 			{Object.values(tools).map(tool => (
 				<ContextMenu key={tool.name}>
 					<ContextMenuTrigger>
-						<Card className="p-4 flex flex-col gap-4 max-w-[400px] cursor-default"
+						<Card className="p-4 flex flex-col gap-4 max-w-[320px] min-w-[200px] cursor-default"
 						      onClick={() => go(tool)}>
 							<div className="flex items-center gap-1">
 								{tool.icon}
 								<div className="font-bold">{t(tool.name, {ns: tool.module})}</div>
 							</div>
-							<p className="flex-1">{t(tool.description ?? "", {ns: tool.module})}</p>
+							<p className="flex-1 text-sm text-secondary-foreground">{t(tool.description ?? "", {ns: tool.module})}</p>
 							<div className="flex flex-wrap gap-2">
 								{tool.tags?.map(tag => (
 									<Badge key={tag}>{t(tag)}</Badge>

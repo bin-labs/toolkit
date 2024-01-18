@@ -4,9 +4,12 @@ import {useEffect, useState} from "react";
 import pinyin from "pinyin/lib/pinyin-web";
 import {pinyinConverter} from "@/modules/text/convert";
 import {useModuleTranslation} from "@/modules/text/translation";
+import {useLocalState} from "@/hooks/state";
+import {useCurrent} from "@/lib/module";
 
 export function PinyinConverter() {
-	const [text, setText] = useState<string>("")
+	const current = useCurrent()
+	const [text, setText] = useLocalState(pinyinConverter + current?.group + ".text", "")
 	const [resText, setResText] = useState<string>("")
 
 	const {t} = useModuleTranslation()
@@ -17,6 +20,7 @@ export function PinyinConverter() {
 	}
 
 	useEffect(() => {
+		localStorage.setItem(pinyinConverter, text)
 		toPinyin()
 	}, [text]);
 

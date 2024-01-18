@@ -2,6 +2,7 @@ package settings
 
 import (
 	"encoding/json"
+	"github.com/byte-room/toolkit/pkg/core"
 	"github.com/labstack/gommon/log"
 	"os"
 	"os/user"
@@ -12,25 +13,19 @@ const AppName = "web3kit"
 const FileName = "settings.json"
 
 type Settings struct {
+	obj *core.NotifyObject
 }
 
-func (s *Settings) Tools() []ToolGroup {
-	var tools []ToolGroup
-	content, err := os.ReadFile(path.Join(GetUserDir(), FileName))
-	if err != nil {
-		log.Errorf("ReadFile error: %s", err.Error())
-		return tools
+func NewSettings() *Settings {
+	st := &Settings{
+		obj: core.NewNotifyObject(onSave),
 	}
-	err = json.Unmarshal(content, &tools)
-	if err != nil {
-		log.Errorf("json Unmarshal tools error error: %s", err.Error())
-		return tools
-	}
-	return tools
+	st.initData()
+	return st
 }
 
-func (s *Settings) SaveTools(tools []ToolGroup) {
-	content, err := json.Marshal(tools)
+func onSave(data map[string]any, k string, v any) {
+	content, err := json.Marshal(data)
 	if err != nil {
 		log.Errorf("json Marshal tools error: %s", err.Error())
 		return
@@ -40,6 +35,30 @@ func (s *Settings) SaveTools(tools []ToolGroup) {
 		log.Errorf("WriteFile error: %s", err.Error())
 		return
 	}
+}
+
+func (s *Settings) SetUerData(k string, v any) {
+	s.obj.Set(k, v)
+}
+
+func (s *Settings) GetUserData(k string) any {
+	return s.obj.Get(k)
+}
+
+func (s *Settings) initData() {
+	data := map[string]any{}
+	content, err := os.ReadFile(path.Join(GetUserDir(), FileName))
+	if err != nil {
+		log.Errorf("ReadFile error: %s", err.Error())
+		return
+	}
+	err = json.Unmarshal(content, &data)
+	if err != nil {
+		log.Errorf("json Unmarshal tools error error: %s", err.Error())
+		return
+	}
+	s.obj.Init(data)
+	return
 }
 
 func GetUserDir() string {
@@ -57,4 +76,4 @@ func GetUserDir() string {
 	return userDir
 }
 
-var Default = &Settings{}
+var Default = NewSettings()

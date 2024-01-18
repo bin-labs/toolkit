@@ -44,19 +44,19 @@ export function UserToolItem(props: ToolItemProps) {
 
 	const selectedClassName = useMemo(() => {
 		if (props.selectedTool && props.selectedTool.toolName === props.name && props.selectedTool.group === props.group) {
-			return "bg-accent text-accent-foreground"
+			return "bg-primary text-primary-foreground"
 		}
-		return ""
+		return "hover:bg-accent hover:text-accent-foreground"
 	}, [props.selectedTool])
 
 	const items: MenuItemData[] = [
 		{
-			content: "Open in a new window",
+			content: t("Open in a new window"),
 			key: "open",
 			disabled: true,
 		},
 		{
-			content: "Delete",
+			content: t("Delete"),
 			key: "delete",
 			onClick: () => removeTool(props.name, props.group)
 		}
@@ -65,7 +65,7 @@ export function UserToolItem(props: ToolItemProps) {
 	return (
 		<DataMenu items={items} disabled={props.menuDisabled}>
 			<div
-				className={cn("px-6 py-2 cursor-default hover:bg-accent hover:text-accent-foreground flex items-center gap-1", selectedClassName, props.className)}
+				className={cn("px-6 py-2 cursor-default flex items-center gap-1", selectedClassName, props.className)}
 				onClick={() => props.onClick ? props.onClick(props) : goTool(props)}
 			>
 				{props.icon}
@@ -119,7 +119,7 @@ export function UserToolGroup(props: UserToolGroupProps) {
 						className="flex py-2 items-center px-4 cursor-default hover:bg-accent hover:text-accent-foreground"
 						onClick={() => props.onClick?.(props) || goto(props.url)}
 					>
-						<span className="flex-1">{props.name}</span>
+						<span className="flex-1 font-bold">{props.name}</span>
 						{open ? (
 							<ChevronUpIcon className="h-4 w-4"/>
 						) : (

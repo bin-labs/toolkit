@@ -2,8 +2,8 @@ import {createContext, type ReactElement, useContext, useEffect, useMemo, useSta
 import {ThemeProvider} from "./theme";
 import {ModuleData, parseModules} from "@/core";
 import {ToolGroupData} from "@/components/tool";
-import {SaveTools} from "wails/go/settings/Settings";
-import {settings} from "wails/go/models";
+import {saveUserTools, UserToolStoreData} from "@/store/tool";
+import {GlobalDialog, GlobalDialogProvider} from "@/components/dialog";
 
 export type AppState = {
 	modules: ModuleData[];
@@ -29,16 +29,16 @@ export const AppContextProvider = ({children}: {
 		if (!userTools || userTools.length === 0) {
 			return
 		}
-		const data: settings.ToolGroup[] = []
+		const data: UserToolStoreData[] = []
 		userTools.forEach(g => {
-			data.push(new settings.ToolGroup({
+			data.push({
 				name: g.name,
 				tools: g.tools.map(tool => ({
 					name: tool.name,
 				}))
-			}))
+			})
 		})
-		SaveTools(data)
+		saveUserTools(data)
 	}, [userTools]);
 
 	const value = {
@@ -49,7 +49,10 @@ export const AppContextProvider = ({children}: {
 	return (
 		<AppProviderContext.Provider value={value}>
 			<ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-				{children}
+				<GlobalDialogProvider>
+					{children}
+					<GlobalDialog/>
+				</GlobalDialogProvider>
 			</ThemeProvider>
 		</AppProviderContext.Provider>
 	);

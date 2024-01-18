@@ -51,22 +51,21 @@ export function UserToolGroupDialog({data}: UserToolGroupDialogProps) {
 	}, [data]);
 
 	return (
-		<Dialog open={open} defaultOpen={true}
+		<Dialog open={open} defaultOpen={false}
 		        modal={true}
 		        onOpenChange={setOpen}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Create a Group</DialogTitle>
+					<DialogTitle>{t("Create group")}</DialogTitle>
 				</DialogHeader>
 				<div className="flex items-center gap-4">
-					<span>Group name: </span>
-					<Input className="flex-1" placeholder="group name" value={group.name}
+					<span>{t("Group name")}: </span>
+					<Input className="flex-1" placeholder={t("Input group name")} value={group.name}
 					       onChange={(e) => setGroup({...group, ...{name: e.target.value}})}/>
 				</div>
 				<DialogFooter>
 					<Button variant="outline" onClick={() => setOpen(false)}>{t("Cancel")}</Button>
 					<Button disabled={group.name === ""}
-					        variant="secondary"
 					        onClick={() => submit()}>{t("Confirm")}</Button>
 				</DialogFooter>
 			</DialogContent>

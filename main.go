@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-
 	"github.com/byte-room/toolkit/internal/settings"
 
 	"github.com/wailsapp/wails/v2"
@@ -25,8 +24,9 @@ func main() {
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
+		EnableDefaultContextMenu: false,
+		BackgroundColour:         &options.RGBA{R: 29, G: 29, B: 31, A: 0},
+		OnStartup:                app.startup,
 		Bind: []interface{}{
 			app,
 			settings.Default,

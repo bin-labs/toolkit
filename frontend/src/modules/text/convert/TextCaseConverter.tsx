@@ -3,9 +3,13 @@ import {Button} from "@/components/ui/button";
 import {Textarea} from "@/components/ui/textarea";
 import {textConverter} from "@/modules/text/convert/index";
 import {useModuleTranslation} from "@/modules/text/translation";
+import {useLocalState} from "@/hooks/state";
+import {useCurrent} from "@/lib/module";
 
 export function TextCaseConverter() {
-	const [text, setText] = useState<string>("")
+	const current = useCurrent()
+
+	const [text, setText] = useLocalState(textConverter + current?.group + ".text", "")
 	const [resText, setResText] = useState<string>("")
 
 	const {t} = useModuleTranslation()
