@@ -18,7 +18,7 @@ import {useGlobalDialog} from "@/components/dialog";
 const languages: Language[] = [
 	{label: "English", value: "en"},
 	{label: "简体中文", value: "zh"},
-	{label: "繁體中文", value: "zh-TW"},
+	{label: "繁體中文", value: "zh-tw"},
 	{label: "日本語", value: "ja"},
 	{label: "한국어", value: "ko"},
 	{label: "العربية", value: "ar"},
@@ -92,9 +92,15 @@ export class OpenAIProvider implements ITranslateProvider {
 			baseURL: data.baseURL,
 			dangerouslyAllowBrowser: true,
 		});
+		let prompt = ""
+		if (params.from !== autoLanguage.value) {
+			prompt += `Translate the following text from ${params.from} to ${params.to}:\n${params.text}\n`
+		} else {
+			prompt += `Translate the following text to ${params.to}:\n${params.text}\n`
+		}
 		const stream = await openai.chat.completions.create({
 			model: this.name,
-			messages: [{role: 'user', content: `Translate the following text to ${params.to}.\n${params.text}`}],
+			messages: [{role: 'user', content: prompt}],
 			stream: true,
 		});
 		let text = ""

@@ -11,15 +11,15 @@ import translator, {Language, TranslateError} from "@/modules/ai/translator/prov
 import {useLocalState} from "@/hooks/state";
 
 export function TranslatePage() {
-	const [text, setText] = useLocalState<string>(TRANSLATOR_NAME + ".text", "")
+	const [text, setText] = useLocalState(TRANSLATOR_NAME + ".text", "")
 	const [resText, setResText] = useState<string>("")
 	const [providers, setProviders] = useState(translator.getProviders())
 	const items = providers.map(p => ({label: p.label, value: p.name}))
-	const [provider, setProvider] = useState<string>(items[0]?.value ?? "")
+	const [provider, setProvider] = useLocalState(TRANSLATOR_NAME + ".provider", items[0]?.value ?? "")
 	const [toLangs, setToLangs] = useState<Language[]>([])
 	const [fromLangs, setFromLangs] = useState<Language[]>([])
-	const [from, setFrom] = useState("")
-	const [to, setTo] = useState("")
+	const [from, setFrom] = useLocalState(TRANSLATOR_NAME + ".provider.from." + provider, "")
+	const [to, setTo] = useLocalState(TRANSLATOR_NAME + ".provider.to." + provider, "")
 	const [loading, setLoading] = useState(false)
 
 	const {t} = useTranslation(MODULE_NAME)
@@ -74,22 +74,32 @@ export function TranslatePage() {
 			translator.getLanguages(provider).then(res => {
 				setToLangs(res.toLang)
 				setFromLangs(res.fromLang)
-				const deTo = res.toLang.find(l => l.value === res.defaultTo)
-				setTo(deTo?.value ?? "")
-				const deFrom = res.fromLang?.find(l => l.value === res.defaultFrom)
-				setFrom(deFrom?.value ?? "")
+
+				// TODO: 简化代码，与useState合并，抽取成新的hook
+				let deTo: string | null | undefined = localStorage.getItem(TRANSLATOR_NAME + ".provider.to." + provider)
+				if (deTo === null || deTo === "") {
+					deTo = res.toLang.find(l => l.value === res.defaultTo)?.value
+				}
+				setTo(deTo ?? "")
+
+				let deFrom: string | null | undefined = localStorage.getItem(TRANSLATOR_NAME + ".provider.from." + provider)
+				if (deFrom === null || deFrom === "") {
+					deFrom = res.fromLang?.find(l => l.value === res.defaultFrom)?.value
+				}
+				setFrom(deFrom ?? "")
 			})
 		} else {
 			setToLangs([])
 		}
 	}, [provider])
 
+
 	return (<div className="flex flex-col gap-2 h-full">
 		<div className="text-xl">{t(TRANSLATOR_NAME)}</div>
 		<div className="flex flex-wrap gap-2 items-center">
 			<span className="flex-1">{t("Input text")}:</span>
 			{t("Model")}:
-			<ModelSelect width="160px"
+			<ModelSelect width="unset"
 			             items={items}
 			             value={provider}
 			             disableSearch
