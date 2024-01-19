@@ -9,7 +9,7 @@ import (
 	"path"
 )
 
-const AppName = "web3kit"
+const AppName = "toolkit"
 const FileName = "settings.json"
 
 type Settings struct {

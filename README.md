@@ -6,9 +6,9 @@ TooKit is a cross-platform, multifunctional toolset software that integrates ess
 
 # Screenshots
 
-![image](./docs/images/image2.png)
+![image](./docs/images/image1_en.png)
 
-![image](./docs/images/image1.png)
+![image](./docs/images/image2_en.png)
 
 # Development
 

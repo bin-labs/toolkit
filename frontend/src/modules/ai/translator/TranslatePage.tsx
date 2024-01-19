@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {useGlobalDialog} from "@/components/dialog";
 import {ModelSelect} from "@/modules/ai/translator/ModelSelect";
 import {Loader2, SettingsIcon} from "lucide-react";
-import translator, {Language} from "@/modules/ai/translator/providers";
+import translator, {Language, TranslateError} from "@/modules/ai/translator/providers";
 import {useLocalState} from "@/hooks/state";
 
 export function TranslatePage() {
@@ -16,7 +16,8 @@ export function TranslatePage() {
 	const [providers, setProviders] = useState(translator.getProviders())
 	const items = providers.map(p => ({label: p.label, value: p.name}))
 	const [provider, setProvider] = useState<string>(items[0]?.value ?? "")
-	const [langs, setLangs] = useState<Language[]>([])
+	const [toLangs, setToLangs] = useState<Language[]>([])
+	const [fromLangs, setFromLangs] = useState<Language[]>([])
 	const [from, setFrom] = useState("")
 	const [to, setTo] = useState("")
 	const [loading, setLoading] = useState(false)
@@ -36,29 +37,50 @@ export function TranslatePage() {
 				}
 			})
 			setResText(res)
+		} catch (e: any) {
+			console.error(e)
+			if (e instanceof TranslateError) {
+				if (e.code === "SettingsError") {
+					handleSettings()
+				} else {
+					show({
+						title: t("Error"),
+						content: e.message
+					})
+				}
+			} else {
+				show({
+					title: t("Error"),
+					content: e.message
+				})
+			}
 		} finally {
 			setLoading(false)
 		}
 	}
 
 	const handleSettings = () => {
-		show({
-			title: "test",
-			content: "test content"
-		})
+		const p = providers.find(p => p.name === provider)
+		if (p) {
+			show({
+				title: "Settings: " + p.label ?? "",
+				content: p.settingContent,
+			})
+		}
 	}
 
 	useEffect(() => {
 		if (provider) {
 			translator.getLanguages(provider).then(res => {
-				setLangs(res.toLang)
+				setToLangs(res.toLang)
+				setFromLangs(res.fromLang)
 				const deTo = res.toLang.find(l => l.value === res.defaultTo)
 				setTo(deTo?.value ?? "")
 				const deFrom = res.fromLang?.find(l => l.value === res.defaultFrom)
 				setFrom(deFrom?.value ?? "")
 			})
 		} else {
-			setLangs([])
+			setToLangs([])
 		}
 	}, [provider])
 
@@ -84,11 +106,11 @@ export function TranslatePage() {
 
 		<div className="flex items-center gap-2">
 			{t("From")}:
-			<ModelSelect width="160px" items={langs} value={from} onChange={m => {
+			<ModelSelect width="160px" items={fromLangs} value={from} onChange={m => {
 				setFrom(m)
 			}}/>
 			{t("To")}:
-			<ModelSelect width="160px" items={langs} value={to} onChange={m => {
+			<ModelSelect width="160px" items={toLangs} value={to} onChange={m => {
 				setTo(m)
 			}}/>
 			<div className="flex-1"></div>

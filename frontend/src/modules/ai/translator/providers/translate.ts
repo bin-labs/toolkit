@@ -12,9 +12,14 @@ export interface Language {
 	label: string
 }
 
+export const autoLanguage: Language = {
+	value: "auto",
+	label: "Auto"
+}
+
 export interface LanguageList {
 	toLang: Language[]
-	fromLang?: Language[]
+	fromLang: Language[]
 	defaultTo?: string
 	defaultFrom?: string
 }
@@ -27,7 +32,6 @@ export interface ITranslateProvider {
 	settingContent?: ReactNode
 
 	translate(p: TranslateParams): Promise<string>
-
 	getLanguages(): Promise<LanguageList>
 }
 

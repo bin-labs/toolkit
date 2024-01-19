@@ -2,6 +2,7 @@ import {GetUserData, SetUerData} from "wails/go/settings/Settings";
 
 export type OpenAIStoreData = {
 	apiKey: string
+	baseURL?: string
 }
 
 export function getOpenAIData(): Promise<OpenAIStoreData | null> {
