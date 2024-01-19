@@ -13,8 +13,10 @@ export interface Language {
 }
 
 export interface LanguageList {
-	items: Language[]
-	defaultValue: string
+	toLang: Language[]
+	fromLang?: Language[]
+	defaultTo?: string
+	defaultFrom?: string
 }
 
 export type TranslateErrorCode = "SettingsError" | "TranslateError"

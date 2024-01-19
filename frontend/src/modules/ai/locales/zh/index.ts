@@ -6,8 +6,11 @@ const en = {
 	translate: "翻译",
 	"Input text": "输入文本",
 	"Result": "结果",
+	"From": "源语言",
 	"To": "目标语言",
 	"Model": "模型",
+	"Select value": "选择值",
+	"Settings": "设置",
 }
 
 export default en;

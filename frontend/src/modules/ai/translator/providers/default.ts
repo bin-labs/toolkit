@@ -5,12 +5,17 @@ export class DefaultProvider implements ITranslateProvider {
 	label = "默认翻译器";
 
 	async translate(params: TranslateParams): Promise<string> {
+		const body: Record<string, string> = {
+			to: params.to,
+			text: JSON.stringify([params.text]),
+		}
+		if (params.from) {
+			body["from"] = params.from;
+		}
+
 		const res = await fetch("https://api.translate.zvo.cn/translate.json?v=2.2.2.20230216", {
 			method: "POST",
-			body: new URLSearchParams({
-				to: params.to,
-				text: JSON.stringify([params.text]),
-			}),
+			body: new URLSearchParams(body),
 		}).then(res => res.json())
 		return Promise.resolve(res.text[0]);
 	}
@@ -22,8 +27,10 @@ export class DefaultProvider implements ITranslateProvider {
 			value: item.id,
 		}))
 		return {
-			items,
-			defaultValue: "english",
+			toLang: items,
+			defaultTo: "english",
+			fromLang: items,
+			defaultFrom: "chinese_simplified",
 		}
 	}
 }
