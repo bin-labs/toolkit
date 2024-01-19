@@ -3,6 +3,13 @@ English | [简体中文](README.zh-Hans.md)
 # ToolKit
 
 TooKit is a cross-platform, multifunctional toolset software that integrates essential tools across various domains such as office productivity, software development, blockchain, and artificial intelligence. The software supports user-customized configurations, allowing users to flexibly adjust tool settings according to their individual needs. Whether you need to enhance office efficiency, engage in software development, delve into blockchain research, or explore the field of artificial intelligence, TooKit provides you with an integrated solution. The user-friendly interface design ensures easy navigation, enabling users to experience efficient and convenient work and innovation processes. Enjoy the convenience and flexibility of a toolset that caters to multiple domains by downloading TooKit.
+
+# Screenshots
+
+![image](./docs/images/image2.png)
+
+![image](./docs/images/image1.png)
+
 # Development
 
 You can configure the project by editing `wails.json`. More information about the project settings can be found

@@ -8,9 +8,10 @@ import {useGlobalDialog} from "@/components/dialog";
 import {ModelSelect} from "@/modules/ai/translator/ModelSelect";
 import {Loader2, SettingsIcon} from "lucide-react";
 import translator, {Language} from "@/modules/ai/translator/providers";
+import {useLocalState} from "@/hooks/state";
 
 export function TranslatePage() {
-	const [text, setText] = useState<string>("")
+	const [text, setText] = useLocalState<string>(TRANSLATOR_NAME + ".text", "")
 	const [resText, setResText] = useState<string>("")
 	const [providers, setProviders] = useState(translator.getProviders())
 	const items = providers.map(p => ({label: p.label, value: p.name}))
@@ -79,7 +80,7 @@ export function TranslatePage() {
 		</div>
 		<Textarea rows={8} defaultValue={text}
 		          onChange={(e) => setText(e.target.value)}
-							/>
+		/>
 
 		<div className="flex items-center gap-2">
 			{t("From")}:
