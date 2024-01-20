@@ -3,7 +3,12 @@ import {createContext, ReactNode, useContext, useState} from "react";
 export type GlobalDialogData = {
 	title: string
 	content?: ReactNode
-	footer?: ReactNode
+	disabledOk?: boolean
+	disabledCancel?: boolean
+	okText?: string
+	cancelText?: string
+	onSubmit?: () => void | Promise<void>
+	onCancel?: () => void | Promise<void>
 }
 
 export type GlobalDialogState = {
@@ -52,9 +57,19 @@ export function useGlobalDialog() {
 		ctx.setOpen(true)
 	}
 
+	const showError = (data: GlobalDialogData) => {
+		ctx.setContent({
+			...data,
+			disabledCancel: true,
+			onSubmit: () => ctx.setOpen(false),
+		})
+		ctx.setOpen(true)
+	}
+
 	return {
 		...ctx,
 		close,
 		show,
+		showError,
 	}
 }

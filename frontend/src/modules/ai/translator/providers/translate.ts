@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {GlobalDialogData} from "@/components/dialog";
 
 export interface TranslateParams {
 	text: string
@@ -26,12 +26,15 @@ export interface LanguageList {
 
 export type TranslateErrorCode = "SettingsError" | "TranslateError"
 
+export type SettingDialogOptions = Partial<GlobalDialogData>
+
 export interface ITranslateProvider {
 	name: string
 	label?: string
-	settingContent?: ReactNode
+	settingOptions?: SettingDialogOptions
 
 	translate(p: TranslateParams): Promise<string>
+
 	getLanguages(): Promise<LanguageList>
 }
 

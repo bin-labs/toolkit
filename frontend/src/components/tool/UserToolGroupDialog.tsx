@@ -66,7 +66,7 @@ export function UserToolGroupDialog({data}: UserToolGroupDialogProps) {
 				<DialogFooter>
 					<Button variant="outline" onClick={() => setOpen(false)}>{t("Cancel")}</Button>
 					<Button disabled={group.name === ""}
-					        onClick={() => submit()}>{t("Confirm")}</Button>
+					        onClick={() => submit()}>{t("Ok")}</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

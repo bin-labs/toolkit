@@ -3,6 +3,7 @@ import {
 	ITranslateProvider,
 	Language,
 	LanguageList,
+	SettingDialogOptions,
 	TranslateError,
 	TranslateParams
 } from "@/modules/ai/translator/providers/translate";
@@ -45,7 +46,7 @@ function OpenAISetting() {
 	}, [])
 
 	return (
-		<>
+		<div className="flex flex-col gap-4">
 			<div className="flex items-center gap-4">
 				<span>API Key:</span>
 				<Input className="flex-1" type="text" value={text} onChange={e => setText(e.target.value)}/>
@@ -59,15 +60,19 @@ function OpenAISetting() {
 				<Button onClick={() => {
 					close()
 				}} variant="outline">{t("Cancel")}</Button>
-				<Button onClick={save}>{t("Confirm")}</Button>
+				<Button onClick={save}>{t("Ok")}</Button>
 			</div>
-		</>
+		</div>
 	)
 }
 
 export class OpenAIProvider implements ITranslateProvider {
 	public readonly name: string
-	public readonly settingContent = <OpenAISetting/>
+	public readonly settingOptions: SettingDialogOptions = {
+		content: <OpenAISetting/>,
+		disabledOk: true,
+		disabledCancel: true
+	}
 
 	constructor(public readonly model: string, public readonly label: string) {
 		this.name = model

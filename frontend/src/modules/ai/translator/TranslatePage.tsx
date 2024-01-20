@@ -23,7 +23,7 @@ export function TranslatePage() {
 	const [loading, setLoading] = useState(false)
 
 	const {t} = useTranslation(MODULE_NAME)
-	const {show} = useGlobalDialog()
+	const {show, showError} = useGlobalDialog()
 
 	const handleTranslate = async () => {
 		setLoading(true)
@@ -43,13 +43,13 @@ export function TranslatePage() {
 				if (e.code === "SettingsError") {
 					handleSettings()
 				} else {
-					show({
+					showError({
 						title: t("Error"),
 						content: e.message
 					})
 				}
 			} else {
-				show({
+				showError({
 					title: t("Error"),
 					content: e.message
 				})
@@ -61,10 +61,10 @@ export function TranslatePage() {
 
 	const handleSettings = () => {
 		const p = providers.find(p => p.name === provider)
-		if (p) {
+		if (p && p.settingOptions) {
 			show({
+				...p.settingOptions,
 				title: "Settings: " + p.label ?? "",
-				content: p.settingContent,
 			})
 		}
 	}

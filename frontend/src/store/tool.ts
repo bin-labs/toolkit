@@ -10,7 +10,5 @@ export function saveUserTools(userTools: UserToolStoreData[]) {
 }
 
 export async function getUserTools(): Promise<UserToolStoreData[]> {
-	const res = await GetUserData('userTools')
-	console.log("res: ", res)
-	return res
+	return await GetUserData('userTools')
 }
