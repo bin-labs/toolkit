@@ -9,7 +9,7 @@ import {useCurrent} from "@/lib/module";
 export function TextCaseConverter() {
 	const current = useCurrent()
 
-	const [text, setText] = useLocalState(textConverter + current?.group + ".text", "")
+	const [text, setText] = useLocalState(textConverter + ".text", "")
 	const [resText, setResText] = useState<string>("")
 
 	const {t} = useModuleTranslation()

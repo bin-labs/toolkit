@@ -1,18 +1,15 @@
 import {JSON_CONVERTER_NAME} from "@/modules/text/format-converter/consts";
 import {useLocalState} from "@/hooks/state";
 import {useEffect, useState} from "react";
-import {useCurrent} from "@/lib/module";
 import {Combobox} from "@/components/comobox/Combobox";
 import {useModuleTranslation} from "@/modules/text/translation";
-import MonacoEditor from 'react-monaco-editor';
 import {ResizableHandle, ResizablePanel, ResizablePanelGroup} from "@/components/ui/resizable";
-
 import {formats} from "@/modules/text/format-converter/fomat";
 import {ToolHeader} from "@/components/tool/ToolHeader";
+import {CodeEditor} from "@/components/editor/CodeEditor";
 
 export function FormatConverterPage() {
-	const current = useCurrent()
-	const [text, setText] = useLocalState(JSON_CONVERTER_NAME + current?.group + ".text", "")
+	const [text, setText] = useLocalState(JSON_CONVERTER_NAME + ".text", "")
 	const [resText, setResText] = useState<string>("")
 	const [fromFormat, setFromFormat] = useState<string>(formats[0].value)
 	const [toFormat, setToFormat] = useState<string>(formats[1].value)
@@ -46,8 +43,8 @@ export function FormatConverterPage() {
 					<Combobox disableSearch width="unset" value={fromFormat} items={formats} onChange={v => setFromFormat(v)}/>
 				</div>
 				{/*<div className="flex-1 bg-red-50"></div>*/}
-				<MonacoEditor className="flex-1 bg-red-50" value={text} onChange={v => setText(v)}
-				              language={fromFormat} theme="vs-dark" options={{automaticLayout: true}}/>
+				<CodeEditor className="flex-1 bg-red-50" value={text} onChange={v => setText(v)}
+				            language={fromFormat} options={{automaticLayout: true}}/>
 			</ResizablePanel>
 			<ResizableHandle withHandle/>
 			<ResizablePanel className="flex-1 flex flex-col">
@@ -56,8 +53,8 @@ export function FormatConverterPage() {
 					<div className="flex-1"></div>
 					<Combobox width="unset" value={toFormat} items={formats} onChange={v => setToFormat(v)} disableSearch/>
 				</div>
-				<MonacoEditor className="flex-1 bg-red-50" value={resText} onChange={v => setResText(resText)}
-				              language={toFormat} theme="vs-dark" options={{automaticLayout: true}}/>
+				<CodeEditor className="flex-1 bg-red-50" value={resText} onChange={v => setResText(resText)}
+				            language={toFormat} options={{automaticLayout: true}}/>
 			</ResizablePanel>
 			{/*<div className="flex-1">*/}
 			{/*	<span>{t("Result")}:</span>*/}

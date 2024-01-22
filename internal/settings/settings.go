@@ -7,13 +7,15 @@ import (
 	"os"
 	"os/user"
 	"path"
+	"sync"
 )
 
 const AppName = "toolkit"
 const FileName = "settings.json"
 
 type Settings struct {
-	obj *core.NotifyObject
+	obj   *core.NotifyObject
+	mutex sync.RWMutex
 }
 
 func NewSettings() *Settings {
@@ -38,10 +40,14 @@ func onSave(data map[string]any, k string, v any) {
 }
 
 func (s *Settings) SetUerData(k string, v any) {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
 	s.obj.Set(k, v)
 }
 
 func (s *Settings) GetUserData(k string) any {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
 	return s.obj.Get(k)
 }
 

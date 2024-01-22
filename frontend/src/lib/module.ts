@@ -23,7 +23,7 @@ export function useCurrent() {
 		if (location.pathname.startsWith("/tool/")) {
 			const paths = location.pathname.split("/")
 			const toolName = paths[2]
-			const group = query.get("group")
+			const group = query.get("group") ?? ""
 			if (toolName) {
 				return {toolName, group}
 			} else {

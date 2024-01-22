@@ -56,10 +56,10 @@ export function Layout() {
 	}, []);
 
 	return (
-		<ResizablePanelGroup direction={"horizontal"} className="w-full h-full">
-			<ResizablePanel defaultSize={260} minSize={20} maxSize={40}>
+		<div className="flex w-full h-full">
+			<div>
 				<DataMenu items={menuItems}>
-					<div className="overflow-auto h-full bg-secondary py-2">
+					<div className="overflow-auto h-full bg-secondary py-2 w-[280px]">
 						<UserToolItem selectedTool={current} className="px-4" name="all" menuDisabled={true} group="all" module=""/>
 						{userTools.map((g) => (
 							<UserToolGroup key={g.name} {...g} onEdit={g => openGroupDialog(g)} selectedTool={current}/>
@@ -67,11 +67,10 @@ export function Layout() {
 					</div>
 				</DataMenu>
 				<UserToolGroupDialog data={groupDialogValue}/>
-			</ResizablePanel>
-			<ResizableHandle className="bg-transparent"/>
-			<ResizablePanel className="flex-1 p-4 overflow-auto">
+			</div>
+			<div className="flex-1 p-4 overflow-auto">
 				<Outlet/>
-			</ResizablePanel>
-		</ResizablePanelGroup>
+			</div>
+		</div>
 	);
 }
