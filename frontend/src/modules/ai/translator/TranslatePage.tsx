@@ -5,10 +5,10 @@ import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {useEffect, useState} from "react";
 import {useGlobalDialog} from "@/components/dialog";
-import {ModelSelect} from "@/modules/ai/translator/ModelSelect";
 import {Loader2, SettingsIcon} from "lucide-react";
 import translator, {Language, TranslateError} from "@/modules/ai/translator/providers";
 import {useLocalState} from "@/hooks/state";
+import {Combobox} from "@/components/comobox/Combobox";
 
 export function TranslatePage() {
 	const [text, setText] = useLocalState(TRANSLATOR_NAME + ".text", "")
@@ -99,7 +99,7 @@ export function TranslatePage() {
 		<div className="flex flex-wrap gap-2 items-center">
 			<span className="flex-1">{t("Input text")}:</span>
 			{t("Model")}:
-			<ModelSelect width="unset"
+			<Combobox width="unset"
 			             items={items}
 			             value={provider}
 			             disableSearch
@@ -116,11 +116,11 @@ export function TranslatePage() {
 
 		<div className="flex items-center gap-2">
 			{t("From")}:
-			<ModelSelect width="160px" items={fromLangs} value={from} onChange={m => {
+			<Combobox width="160px" items={fromLangs} value={from} onChange={m => {
 				setFrom(m)
 			}}/>
 			{t("To")}:
-			<ModelSelect width="160px" items={toLangs} value={to} onChange={m => {
+			<Combobox width="160px" items={toLangs} value={to} onChange={m => {
 				setTo(m)
 			}}/>
 			<div className="flex-1"></div>

@@ -1,7 +1,7 @@
 import {TextCaseConverter} from "@/modules/text/convert/TextCaseConverter";
 import React from "react";
 import {PinyinConverter} from "@/modules/text/convert/PinyinConverter";
-import {CountdownTimerIcon, FileTextIcon, IdCardIcon, ReaderIcon} from "@radix-ui/react-icons";
+import {CountdownTimerIcon, ReaderIcon} from "@radix-ui/react-icons";
 
 export const textConverter = "text.converter";
 export const pinyinConverter = "text.pinyin";

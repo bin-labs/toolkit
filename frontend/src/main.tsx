@@ -3,6 +3,7 @@ import {createRoot} from "react-dom/client";
 import "@/style.css";
 import usei18n from "./core/i18n";
 import App from "./App";
+import "./userworker";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);

@@ -8,6 +8,7 @@ import {DataMenu, MenuItemData} from "@/components/data-menu";
 import {TooGroupDialogValue, UserToolGroupDialog} from "@/components/tool/UserToolGroupDialog";
 import {getUserTools} from "@/store/tool";
 import {useCurrent} from "@/lib/module";
+import {ResizableHandle, ResizablePanel, ResizablePanelGroup} from "@/components/ui/resizable";
 
 
 export function Layout() {
@@ -55,19 +56,22 @@ export function Layout() {
 	}, []);
 
 	return (
-		<div className="flex w-full h-full">
-			<DataMenu items={menuItems}>
-				<div className="w-[260px] overflow-auto h-full bg-secondary py-2">
-					<UserToolItem selectedTool={current} className="px-4" name="all" menuDisabled={true} group="all" module=""/>
-					{userTools.map((g) => (
-						<UserToolGroup key={g.name} {...g} onEdit={g => openGroupDialog(g)} selectedTool={current}/>
-					))}
-				</div>
-			</DataMenu>
-			<UserToolGroupDialog data={groupDialogValue}/>
-			<div className="flex-1 p-4 overflow-auto">
+		<ResizablePanelGroup direction={"horizontal"} className="w-full h-full">
+			<ResizablePanel defaultSize={260} minSize={20} maxSize={40}>
+				<DataMenu items={menuItems}>
+					<div className="overflow-auto h-full bg-secondary py-2">
+						<UserToolItem selectedTool={current} className="px-4" name="all" menuDisabled={true} group="all" module=""/>
+						{userTools.map((g) => (
+							<UserToolGroup key={g.name} {...g} onEdit={g => openGroupDialog(g)} selectedTool={current}/>
+						))}
+					</div>
+				</DataMenu>
+				<UserToolGroupDialog data={groupDialogValue}/>
+			</ResizablePanel>
+			<ResizableHandle className="bg-transparent"/>
+			<ResizablePanel className="flex-1 p-4 overflow-auto">
 				<Outlet/>
-			</div>
-		</div>
+			</ResizablePanel>
+		</ResizablePanelGroup>
 	);
 }

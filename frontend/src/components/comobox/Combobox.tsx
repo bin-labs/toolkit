@@ -7,7 +7,7 @@ import {Check, ChevronsUpDown} from "lucide-react"
 import {useTranslation} from "react-i18next";
 import {MODULE_NAME} from "@/modules/ai/consts";
 
-export type ModelSelectProps = {
+export type ComboboxProps = {
 	value: string
 	items: { label?: string, value: string }[]
 	onChange: (value: string) => void
@@ -15,7 +15,7 @@ export type ModelSelectProps = {
 	disableSearch?: boolean
 }
 
-export function ModelSelect(props: ModelSelectProps) {
+export function Combobox(props: ComboboxProps) {
 	const {items} = props
 
 	const [open, setOpen] = useState(false)
