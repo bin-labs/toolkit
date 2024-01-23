@@ -1,4 +1,4 @@
-import {GetUserData, SetUerData} from "wails/go/settings/Settings";
+import { getData, setData } from "./local"
 
 export type OpenAIStoreData = {
 	apiKey: string
@@ -6,9 +6,9 @@ export type OpenAIStoreData = {
 }
 
 export function getOpenAIData(): Promise<OpenAIStoreData | null> {
-	return GetUserData('openai.apikey')
+	return getData('openai.config')
 }
 
 export function saveOpenAIData(data: OpenAIStoreData) {
-	return SetUerData('openai.apikey', data)
+	return setData('openai.config', data)
 }

@@ -1,5 +1,13 @@
-build/bin
-node_modules
-frontend/dist
+npm-debug.log
+node_modules/
+dist/
+tmp/
+release/
+npm-error.log
+.DS_Store
+*.json-e
+*.js-e
 
+.vscode
 .idea
+.eslintcache
