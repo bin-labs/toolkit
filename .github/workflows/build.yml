@@ -4,7 +4,7 @@ on:
   push:
     tags:
       # Match any new tag
-      - '*'
+      - 'v*'
 
 env:
   # Necessary for most environments as build failure can occur due to OOM issues
@@ -17,20 +17,20 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - name: 'ToolKit'
-            platform:  'linux/amd64'
+          - name: toolkit-${{ github.ref }}-linux-amd64
+            platform: 'linux/amd64'
             os: 'ubuntu-latest'
-          - name: 'ToolKit'
-            platform:  'windows/amd64'
+          - name: toolkit-${{ github.ref }}-windows-amd64
+            platform: 'windows/amd64'
             os: 'windows-latest'
-          - name: 'ToolKit'
-            platform:  'darwin/universal'
+          - name: toolkit-${{ github.ref }}-darwin-universal
+            platform: 'darwin/universal'
             os: 'macos-latest'
 
     runs-on: ${{ matrix.build.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
