@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "pnpm run build",
+    "beforeDevCommand": "pnpm run dev",
     "devPath": "http://localhost:5173",
     "distDir": "../dist",
     "withGlobalTauri": true
@@ -12,9 +12,6 @@
     "version": "0.1.0"
   },
   "tauri": {
-    "allowlist": {
-      "all": false
-    },
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
@@ -23,10 +20,11 @@
         "depends": []
       },
       "externalBin": [],
-      "icon": [
-        "icons/ico.png"
-      ],
-      "identifier": "com.tauri.dev",
+      "icon": ["icons/icon.ico", "icons/icon.png"],
+      "updater": {
+        "active": false
+      },
+      "identifier": "xyz.bin-labs.toolkit",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -47,16 +45,14 @@
     "security": {
       "csp": null
     },
-    "updater": {
-      "active": false
-    },
+
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 768,
         "resizable": true,
         "title": "ToolKit",
-        "width": 800
+        "width": 1024
       }
     ]
   }
