@@ -4,7 +4,7 @@ on:
   push:
     tags:
       # Match any new tag
-      - 'v*'
+      - 'v*.*.*'
 
 env:
   # Necessary for most environments as build failure can occur due to OOM issues
@@ -17,13 +17,13 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - name: toolkit-${{ github.ref }}-linux-amd64
+          - name: linux-amd64
             platform: 'linux/amd64'
             os: 'ubuntu-latest'
-          - name: toolkit-${{ github.ref }}-windows-amd64
+          - name: windows-amd64
             platform: 'windows/amd64'
             os: 'windows-latest'
-          - name: toolkit-${{ github.ref }}-darwin-universal
+          - name: darwin-universal
             platform: 'darwin/universal'
             os: 'macos-latest'
 
@@ -34,11 +34,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
       - name: Build wails
         uses: dAppServer/wails-build-action@v2.2
         id: build
         with:
-          build-name: ${{ matrix.build.name }}
+          build-name: toolkit-${{ env.RELEASE_VERSION }}-${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}
           package: true
           go-version: '1.21'
