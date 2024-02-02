@@ -39,8 +39,11 @@ dependencies:
     specifier: ^1.0.4
     version: 1.0.4(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)
   '@tauri-apps/api':
-    specifier: ^1.5.3
-    version: 1.5.3
+    specifier: 2.0.0-alpha.14
+    version: 2.0.0-alpha.14
+  '@tauri-apps/plugin-store':
+    specifier: 2.0.0-alpha.5
+    version: 2.0.0-alpha.5
   axios:
     specifier: ^1.6.5
     version: 1.6.5
@@ -1717,9 +1720,14 @@ packages:
     dev: true
     optional: true
 
-  /@tauri-apps/api@1.5.3:
-    resolution: {integrity: sha512-zxnDjHHKjOsrIzZm6nO5Xapb/BxqUq1tc7cGkFXsFkGTsSWgCPH1D8mm0XS9weJY2OaR73I3k3S+b7eSzJDfqA==}
-    engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+  /@tauri-apps/api@2.0.0-alpha.13:
+    resolution: {integrity: sha512-sGgCkFahF3OZAHoGN5Ozt9WK7wJlbVZSgWpPQKNag4nSOX1+Py6VDRTEWriiJHDiV+gg31CWHnNXRy6TFoZmdA==}
+    engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+    dev: false
+
+  /@tauri-apps/api@2.0.0-alpha.14:
+    resolution: {integrity: sha512-j9WxOIsNqt+0CypY8wu0dSsTJJQw3H37yIdyYsgrjvHgJ/yQB0AAbOFBo6+v3C/fZ35ydswgeFCBEoeK9NC7QA==}
+    engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
     dev: false
 
   /@tauri-apps/cli-darwin-arm64@2.0.0-alpha.21:
@@ -1828,6 +1836,12 @@ packages:
       '@tauri-apps/cli-win32-ia32-msvc': 2.0.0-alpha.21
       '@tauri-apps/cli-win32-x64-msvc': 2.0.0-alpha.21
     dev: true
+
+  /@tauri-apps/plugin-store@2.0.0-alpha.5:
+    resolution: {integrity: sha512-n20kHSQwfoRf0p8mRuntba1WuPTMJwurs0veDSGoet87Woo8jdFdSBE30y4vpTzMr2Z8dvw0B0Xbh/Jxxisybg==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-alpha.13
+    dev: false
 
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}

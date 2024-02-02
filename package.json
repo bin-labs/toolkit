@@ -5,6 +5,7 @@
   "type": "module",
   "homepage": ".",
   "scripts": {
+    "tauri:dev": "tauri dev",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -21,7 +22,8 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
-    "@tauri-apps/api": "^1.5.3",
+    "@tauri-apps/api": "2.0.0-alpha.14",
+    "@tauri-apps/plugin-store": "2.0.0-alpha.5",
     "axios": "^1.6.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

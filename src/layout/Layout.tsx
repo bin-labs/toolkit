@@ -8,7 +8,6 @@ import {DataMenu, MenuItemData} from "@/components/data-menu";
 import {TooGroupDialogValue, UserToolGroupDialog} from "@/components/tool/UserToolGroupDialog";
 import {getUserTools} from "@/store/tool";
 import {useCurrent} from "@/lib/module";
-import {ResizableHandle, ResizablePanel, ResizablePanelGroup} from "@/components/ui/resizable";
 
 
 export function Layout() {
@@ -17,7 +16,6 @@ export function Layout() {
 
 	const allTools = useAllTools();
 	const {t} = useTranslation();
-	const navigate = useNavigate()
 	const current = useCurrent()
 
 	const menuItems: MenuItemData[] = [

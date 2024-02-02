@@ -1,13 +1,15 @@
-export function getData<T>(key: string): Promise<T | null> {
-  const item = localStorage.getItem(key)
-  if (item) {
-    return Promise.resolve(JSON.parse(item))
+import { invoke } from "@tauri-apps/api/core"
+
+export async function getData<T>(key: string): Promise<T | null> {
+  const v = await invoke('settings_get', { key })
+  console.info('setData', key, v)
+  if (v) {
+    return JSON.parse(v as string)
   }
-  return Promise.resolve(null)
+  return null
 }
 
 export function setData<T>(key: string, data: T): Promise<void> {
   const item = JSON.stringify(data)
-  localStorage.setItem(key, item)
-  return Promise.resolve()
+  return invoke('settings_set', { key, value: item })
 }
