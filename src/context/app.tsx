@@ -26,7 +26,6 @@ export const AppContextProvider = ({ children }: {
 	const [userTools, setUserTools] = useState<ToolGroupData[]>([])
 
 	useEffect(() => {
-		console.log("tools changed: ", userTools)
 		const data: UserToolStoreData[] = []
 		userTools.forEach(g => {
 			data.push({
