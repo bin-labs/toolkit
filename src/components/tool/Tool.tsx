@@ -1,12 +1,13 @@
-import {Collapsible, CollapsibleContent, CollapsibleTrigger,} from "@/components/ui/collapsible";
-import {ChevronDownIcon, ChevronUpIcon} from "@radix-ui/react-icons";
-import React, {useMemo} from "react";
-import {useNavigate} from "react-router-dom";
-import {cn} from "@/lib/utils";
-import {DataMenu, MenuItemData} from "@/components/data-menu";
-import {CurrentUserTool, useDeleteGroup, useRemoveToolFromGroup} from "@/hooks/tool";
-import {useTranslation} from "react-i18next";
-import {ModuleToolData} from "@/core";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible";
+import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
+import React, { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { DataMenu, MenuItemData } from "@/components/data-menu";
+import { CurrentUserTool, useDeleteGroup, useRemoveToolFromGroup } from "@/hooks/tool";
+import { useTranslation } from "react-i18next";
+import { ModuleToolData } from "@/core";
+import { Badge } from "@/components/ui/badge"
 
 export type UserTool = ModuleToolData & {
 	group: string
@@ -40,7 +41,7 @@ export function UserToolItem(props: ToolItemProps) {
 	const removeTool = useRemoveToolFromGroup()
 	const goTool = useGoTool()
 
-	const {t} = useTranslation()
+	const { t } = useTranslation()
 
 	const selectedClassName = useMemo(() => {
 		if (props.selectedTool && props.selectedTool.toolName === props.name && props.selectedTool.group === props.group) {
@@ -69,7 +70,7 @@ export function UserToolItem(props: ToolItemProps) {
 				onClick={() => props.onClick ? props.onClick(props) : goTool(props)}
 			>
 				{props.icon}
-				{t(props.name, {ns: props.module})}
+				{t(props.name, { ns: props.module })}
 			</div>
 		</DataMenu>
 	);
@@ -84,7 +85,7 @@ export type UserToolGroupProps = ToolGroupData & {
 export function UserToolGroup(props: UserToolGroupProps) {
 	const [open, setOpen] = React.useState(false);
 	const navigate = useNavigate();
-	const {t} = useTranslation()
+	const { t } = useTranslation()
 	const deleteGroup = useDeleteGroup()
 	const goto = (url?: string) => {
 		if (url) {
@@ -119,17 +120,20 @@ export function UserToolGroup(props: UserToolGroupProps) {
 						className="flex py-2 items-center px-4 cursor-default hover:bg-accent hover:text-accent-foreground"
 						onClick={() => props.onClick?.(props) || goto(props.url)}
 					>
-						<span className="flex-1 font-bold">{props.name}</span>
+						<span className="flex-1 flex items-center">
+							<span className="font-bold mr-1">{props.name}</span>
+							<span>({props.tools.length})</span>
+						</span>
 						{open ? (
-							<ChevronUpIcon className="h-4 w-4"/>
+							<ChevronUpIcon className="h-4 w-4" />
 						) : (
-							<ChevronDownIcon className="h-4 w-4"/>
+							<ChevronDownIcon className="h-4 w-4" />
 						)}
 					</div>
 				</CollapsibleTrigger>
 				<CollapsibleContent className="flex flex-col">
 					{props.tools.map((t) => (
-						<UserToolItem key={t.name} {...t} selectedTool={props.selectedTool}/>
+						<UserToolItem key={t.name} {...t} selectedTool={props.selectedTool} />
 					))}
 				</CollapsibleContent>
 			</Collapsible>

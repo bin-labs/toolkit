@@ -1,9 +1,9 @@
-import {createContext, type ReactElement, useContext, useEffect, useMemo, useState} from "react";
-import {ThemeProvider} from "./theme";
-import {ModuleData, parseModules} from "@/core";
-import {ToolGroupData} from "@/components/tool";
-import {saveUserTools, UserToolStoreData} from "@/store/tool";
-import {GlobalDialog, GlobalDialogProvider} from "@/components/dialog";
+import { createContext, type ReactElement, useContext, useEffect, useMemo, useState } from "react";
+import { ThemeProvider } from "./theme";
+import { ModuleData, parseModules } from "@/core";
+import { ToolGroupData } from "@/components/tool";
+import { saveUserTools, UserToolStoreData } from "@/store/tool";
+import { GlobalDialog, GlobalDialogProvider } from "@/components/dialog";
 
 export type AppState = {
 	modules: ModuleData[];
@@ -19,16 +19,14 @@ const initState: AppState = {
 
 const AppProviderContext = createContext<AppState>(initState);
 
-export const AppContextProvider = ({children}: {
+export const AppContextProvider = ({ children }: {
 	children: ReactElement;
 }) => {
 	const modules = useMemo(() => parseModules(), []);
 	const [userTools, setUserTools] = useState<ToolGroupData[]>([])
 
 	useEffect(() => {
-		if (!userTools || userTools.length === 0) {
-			return
-		}
+		console.log("tools changed: ", userTools)
 		const data: UserToolStoreData[] = []
 		userTools.forEach(g => {
 			data.push({
@@ -51,7 +49,7 @@ export const AppContextProvider = ({children}: {
 			<ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
 				<GlobalDialogProvider>
 					{children}
-					<GlobalDialog/>
+					<GlobalDialog />
 				</GlobalDialogProvider>
 			</ThemeProvider>
 		</AppProviderContext.Provider>

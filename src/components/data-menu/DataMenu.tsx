@@ -28,7 +28,7 @@ export type MenuItemData = {
 function DataMenuItem(props: MenuItemData) {
 	return props.children ? (
 		<ContextMenuSub>
-			<ContextMenuSubTrigger>
+			<ContextMenuSubTrigger disabled>
 				{props.content}
 			</ContextMenuSubTrigger>
 			<ContextMenuSubContent>
