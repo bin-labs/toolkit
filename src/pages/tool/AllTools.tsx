@@ -39,7 +39,7 @@ export function AllTools() {
 			{Object.values(tools).map(tool => (
 				<ContextMenu key={tool.name}>
 					<ContextMenuTrigger>
-						<Card className="p-4 flex flex-col gap-4 max-w-[320px] min-w-[200px] cursor-default"
+						<Card className="p-4 flex flex-col h-full gap-4 max-w-[320px] min-w-[200px] cursor-default"
 						      onClick={() => go(tool)}>
 							<div className="flex items-center gap-1">
 								{tool.icon}

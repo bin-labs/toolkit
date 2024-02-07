@@ -1,4 +1,4 @@
-import React, {MouseEvent, ReactNode} from "react";
+import React, { MouseEvent, ReactNode } from "react";
 import {
 	ContextMenu,
 	ContextMenuContent,
@@ -8,10 +8,12 @@ import {
 	ContextMenuSubTrigger,
 	ContextMenuTrigger
 } from "@/components/ui/context-menu";
+import { cn } from "@/lib/utils";
 
 export type DataMenuProps = {
 	children: ReactNode
 	disabled?: boolean
+	classname?: string
 	items?: MenuItemData[]
 }
 
@@ -30,7 +32,7 @@ function DataMenuItem(props: MenuItemData) {
 				{props.content}
 			</ContextMenuSubTrigger>
 			<ContextMenuSubContent>
-				{props.children.map(child => (<DataMenuItem {...child}/>))}
+				{props.children.map(child => (<DataMenuItem {...child} />))}
 			</ContextMenuSubContent>
 		</ContextMenuSub>) : (
 		<ContextMenuItem disabled={props.disabled} onClick={e => props.onClick?.(props, e)}>
@@ -44,13 +46,13 @@ export function DataMenu(props: DataMenuProps) {
 		return props.children
 	}
 	return (
-		<ContextMenu>
-			<ContextMenuTrigger>
+		<ContextMenu >
+			<ContextMenuTrigger className={cn(props.classname)}>
 				{props.children}
 			</ContextMenuTrigger>
 			{props.disabled ? null : (
 				<ContextMenuContent>
-					{props.items?.map(item => (<DataMenuItem {...item}/>))}
+					{props.items?.map(item => (<DataMenuItem {...item} />))}
 				</ContextMenuContent>)
 			}
 		</ContextMenu>
