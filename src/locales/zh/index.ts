@@ -11,19 +11,23 @@ const en = {
 	"Input group name": "输入分组名称",
 	"Group name": "分组名称",
 	"options": "选项",
-	"aprearence": {
-		"color": "更改颜色主题",
-		"colorDescription": "选择最适合您的颜色主题。",
-		"system": "系统",
-		"light": "亮",
-		"dark": "暗"
-	},
-	"lang": {
-		"zh": "简体中文",
-		"en": "英语"
-	},
-	"language": "语言",
-	"changeLanguage": "更改显示的语言",
+	"settings": {
+		"aprearence": {
+			"color": "更改颜色主题",
+			"colorDescription": "选择最适合您的颜色主题。",
+			"system": "系统",
+			"light": "亮",
+			"dark": "暗"
+		},
+		"general": {
+			"language": {
+				"name": "语言",
+				"description": "更改显示语言",
+				"en": "英语",
+				"zh": "简体中文"
+			}
+		}
+	}
 }
 
 export default en;

@@ -14,17 +14,17 @@ export function Appearance() {
     <div className="">
       <div className="flex items-center">
         <div className="flex-1">
-          <div>{t("aprearence.color")}</div>
-          <div className="text-gray-400 my-1">{t("aprearence.colorDescription")}</div>
+          <div>{t("settings.aprearence.color")}</div>
+          <div className="text-gray-400 my-1">{t("settings.aprearence.colorDescription")}</div>
         </div>
         <Select value={theme} onValueChange={handleThemeChange}>
           <SelectTrigger className="w-[160px]">
             <SelectValue placeholder="Theme" />
           </SelectTrigger>
           <SelectContent className="w-[160px]">
-            <SelectItem key="1" value="system">{t("aprearence.system")}</SelectItem>
-            <SelectItem key="2" value="light">{t("aprearence.light")}</SelectItem>
-            <SelectItem key="3" value="dark">{t("aprearence.dark")}</SelectItem>
+            <SelectItem key="1" value="system">{t("settings.aprearence.system")}</SelectItem>
+            <SelectItem key="2" value="light">{t("settings.aprearence.light")}</SelectItem>
+            <SelectItem key="3" value="dark">{t("settings.aprearence.dark")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
