@@ -1,7 +1,7 @@
-import {useAllTools} from "@/hooks/tool";
-import {Card,} from "@/components/ui/card"
-import {useTranslation} from "react-i18next";
-import {Badge} from "@/components/ui/badge";
+import { useAllTools } from "@/hooks/tool";
+import { Card, } from "@/components/ui/card"
+import { useTranslation } from "react-i18next";
+import { Badge } from "@/components/ui/badge";
 import {
 	ContextMenu,
 	ContextMenuContent,
@@ -11,14 +11,14 @@ import {
 	ContextMenuSubTrigger,
 	ContextMenuTrigger,
 } from "@/components/ui/context-menu"
-import {useApp} from "@/context";
-import {ToolGroupData, useGoTool} from "@/components/tool";
-import {ModuleToolData} from "@/core";
+import { useApp } from "@/context";
+import { ToolGroupData, useGoTool } from "@/components/tool";
+import { ModuleToolData } from "@/core";
 
 export function AllTools() {
 	const tools = useAllTools()
-	const {userTools, setUserTools} = useApp()
-	const {t} = useTranslation()
+	const { userTools, setUserTools } = useApp()
+	const { t } = useTranslation()
 	const go = useGoTool()
 
 	const addToolToGroup = (tool: ModuleToolData, group: ToolGroupData) => {
@@ -29,7 +29,7 @@ export function AllTools() {
 					group: group.name
 				}
 			})
-			setUserTools([...userTools])
+			setUserTools([...userTools ?? []])
 		}
 	}
 
@@ -40,12 +40,12 @@ export function AllTools() {
 				<ContextMenu key={tool.name}>
 					<ContextMenuTrigger>
 						<Card className="p-4 flex flex-col h-full gap-4 max-w-[320px] min-w-[200px] cursor-default"
-						      onClick={() => go(tool)}>
+							onClick={() => go(tool)}>
 							<div className="flex items-center gap-1">
 								{tool.icon}
-								<div className="font-bold">{t(tool.name, {ns: tool.module})}</div>
+								<div className="font-bold">{t(tool.name, { ns: tool.module })}</div>
 							</div>
-							<p className="flex-1 text-sm text-secondary-foreground">{t(tool.description ?? "", {ns: tool.module})}</p>
+							<p className="flex-1 text-sm text-secondary-foreground">{t(tool.description ?? "", { ns: tool.module })}</p>
 							<div className="flex flex-wrap gap-2">
 								{tool.tags?.map(tag => (
 									<Badge key={tag}>{t(tag)}</Badge>
@@ -59,7 +59,7 @@ export function AllTools() {
 						<ContextMenuSub>
 							<ContextMenuSubTrigger>{t("Add to group")}</ContextMenuSubTrigger>
 							<ContextMenuSubContent>
-								{userTools.map(g => (
+								{userTools?.map(g => (
 									<ContextMenuItem key={g.name} onClick={() => addToolToGroup(tool, g)}>{g.name}</ContextMenuItem>))}
 							</ContextMenuSubContent>
 						</ContextMenuSub>

@@ -1,10 +1,10 @@
-import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
-import {ToolGroupData} from "@/components/tool/Tool";
-import {useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
-import {useApp} from "@/context";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ToolGroupData } from "@/components/tool/Tool";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useApp } from "@/context";
 
 export type TooGroupDialogValue = {
 	open: boolean
@@ -15,15 +15,18 @@ export type UserToolGroupDialogProps = {
 	data?: TooGroupDialogValue
 }
 
-export function UserToolGroupDialog({data}: UserToolGroupDialogProps) {
+export function UserToolGroupDialog({ data }: UserToolGroupDialogProps) {
 
-	const {t} = useTranslation()
-	const {userTools, setUserTools} = useApp()
+	const { t } = useTranslation()
+	const { userTools, setUserTools } = useApp()
 
 	const [open, setOpen] = useState(false)
-	const [group, setGroup] = useState<ToolGroupData>({name: "", tools: []})
+	const [group, setGroup] = useState<ToolGroupData>({ name: "", tools: [] })
 
 	const submit = () => {
+		if (userTools === undefined) {
+			return
+		}
 		if (!data?.group) {
 			if (group && userTools.findIndex(g => g.name === group.name) < 0) {
 				setUserTools([...userTools, group])
@@ -45,15 +48,15 @@ export function UserToolGroupDialog({data}: UserToolGroupDialogProps) {
 		if (data?.group) {
 			setGroup(data.group)
 		} else {
-			setGroup({name: "", tools: []})
+			setGroup({ name: "", tools: [] })
 		}
 		setOpen(data?.open ?? false)
 	}, [data]);
 
 	return (
 		<Dialog open={open} defaultOpen={false}
-		        modal={true}
-		        onOpenChange={setOpen}>
+			modal={true}
+			onOpenChange={setOpen}>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>{t("Create group")}</DialogTitle>
@@ -61,12 +64,12 @@ export function UserToolGroupDialog({data}: UserToolGroupDialogProps) {
 				<div className="flex items-center gap-4">
 					<span>{t("Group name")}: </span>
 					<Input className="flex-1" placeholder={t("Input group name")} value={group.name}
-					       onChange={(e) => setGroup({...group, ...{name: e.target.value}})}/>
+						onChange={(e) => setGroup({ ...group, ...{ name: e.target.value } })} />
 				</div>
 				<DialogFooter>
 					<Button variant="outline" onClick={() => setOpen(false)}>{t("Cancel")}</Button>
 					<Button disabled={group.name === ""}
-					        onClick={() => submit()}>{t("Ok")}</Button>
+						onClick={() => submit()}>{t("Ok")}</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

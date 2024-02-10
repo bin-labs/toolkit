@@ -7,7 +7,7 @@ import { GlobalDialog, GlobalDialogProvider } from "@/components/dialog";
 
 export type AppState = {
 	modules: ModuleData[];
-	userTools: ToolGroupData[];
+	userTools?: ToolGroupData[];
 	setUserTools: (tg: ToolGroupData[]) => void
 };
 
@@ -19,14 +19,18 @@ const initState: AppState = {
 
 const AppProviderContext = createContext<AppState>(initState);
 
+
 export const AppContextProvider = ({ children }: {
 	children: ReactElement;
 }) => {
 	const modules = useMemo(() => parseModules(), []);
-	const [userTools, setUserTools] = useState<ToolGroupData[]>([])
+	const [userTools, setUserTools] = useState<ToolGroupData[]>()
 
 	useEffect(() => {
 		const data: UserToolStoreData[] = []
+		if (userTools === undefined) {
+			return
+		}
 		userTools.forEach(g => {
 			data.push({
 				name: g.name,

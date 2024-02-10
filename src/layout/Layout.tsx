@@ -12,11 +12,12 @@ import { Button } from "@/components/ui/button";
 import { SettingsIcon } from "lucide-react";
 import { useSettings } from "@/pages/settings/hook";
 import { Separator } from "@/components/ui/separator";
-
+import { getVersion } from '@tauri-apps/api/app'
 
 export function Layout() {
 	const { userTools, setUserTools } = useApp()
 	const [groupDialogValue, setGroupDialogValue] = useState<TooGroupDialogValue>()
+	const [version, setVersion] = useState<string>()
 
 	const allTools = useAllTools();
 	const { t } = useTranslation();
@@ -59,13 +60,17 @@ export function Layout() {
 		initUserTools();
 	}, []);
 
+	useEffect(() => {
+		getVersion().then(v => setVersion(v))
+	}, [])
+
 	return (
 		<div className="flex w-full h-full">
 			<div className="bg-secondary h-full flex flex-col">
 				<DataMenu items={menuItems} classname="flex-1 overflow-auto">
 					<div className="py-2 w-[280px]">
 						<UserToolItem selectedTool={current} className="px-4" name="all" menuDisabled={true} group="all" module="" />
-						{userTools.map((g) => (
+						{userTools?.map((g) => (
 							<UserToolGroup key={g.name} {...g} onEdit={g => openGroupDialog(g)} selectedTool={current} />
 						))}
 					</div>
@@ -76,7 +81,7 @@ export function Layout() {
 						<SettingsIcon className="h-5 w-5" />
 					</Button>
 					<div className="flex-1"></div>
-					<span className="px-1 text-gray-400">v0.0.4</span>
+					<span className="px-1 text-gray-400">{version}</span>
 				</div>
 				<UserToolGroupDialog data={groupDialogValue} />
 			</div>

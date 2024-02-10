@@ -158,7 +158,7 @@ export function TranslatePage() {
         />
         <div className="flex-1"></div>
         <Button
-          className="w-[200px]"
+          className="w-[140px]"
           variant="secondary"
           disabled={!text || loading || !to || !provider}
           onClick={handleTranslate}
