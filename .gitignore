@@ -1,6 +1,7 @@
 npm-debug.log
 node_modules/
 dist/
+src-tauri/gen
 tmp/
 release/
 npm-error.log

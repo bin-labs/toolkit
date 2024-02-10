@@ -76,7 +76,7 @@ export function Layout() {
 						<SettingsIcon className="h-5 w-5" />
 					</Button>
 					<div className="flex-1"></div>
-					<span className="px-1 text-gray-400">v0.0.1-alpha</span>
+					<span className="px-1 text-gray-400">v0.0.4</span>
 				</div>
 				<UserToolGroupDialog data={groupDialogValue} />
 			</div>

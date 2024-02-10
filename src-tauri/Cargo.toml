@@ -1,6 +1,6 @@
 [package]
 name = "toolkit"
-version = "0.0.1"
+version = "0.0.4"
 description = "a toolkit for the web"
 authors = ["waite1x"]
 license = "MIT"

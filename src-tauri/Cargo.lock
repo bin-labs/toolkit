@@ -3856,7 +3856,7 @@ dependencies = [
 
 [[package]]
 name = "toolkit"
-version = "0.0.1"
+version = "0.0.4"
 dependencies = [
  "home",
  "lazy_static",
