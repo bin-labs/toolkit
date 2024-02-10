@@ -35,11 +35,11 @@ export function AllTools() {
 
 	return (<div>
 		<h1 className="text-2xl pb-4">{t("all")}</h1>
-		<div className="flex flex-wrap gap-2">
+		<div className="grid grid-cols-[repeat(auto-fill,minmax(200px,2fr))] gap-2">
 			{Object.values(tools).map(tool => (
 				<ContextMenu key={tool.name}>
 					<ContextMenuTrigger>
-						<Card className="p-4 flex flex-col h-full gap-4 max-w-[320px] min-w-[200px] cursor-default"
+						<Card className="p-4 flex flex-col h-full gap-4 cursor-default"
 							onClick={() => go(tool)}>
 							<div className="flex items-center gap-1">
 								{tool.icon}
