@@ -7,7 +7,6 @@ import { DataMenu, MenuItemData } from "@/components/data-menu";
 import { CurrentUserTool, useDeleteGroup, useRemoveToolFromGroup } from "@/hooks/tool";
 import { useTranslation } from "react-i18next";
 import { ModuleToolData } from "@/core";
-import { Badge } from "@/components/ui/badge"
 
 export type UserTool = ModuleToolData & {
 	group: string

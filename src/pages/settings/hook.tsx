@@ -13,6 +13,8 @@ export function useSettings() {
       content: <Settings />,
       disabledCancel: true,
       disabledOk: true,
+      disabledTitle: true,
+      ContainerCls: "h-[calc(100%-60px)] w-[calc(100%-80px)] pt-0 pr-0  max-w-[1000px]"
     })
   }
 

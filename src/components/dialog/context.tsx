@@ -1,12 +1,14 @@
-import {createContext, ReactNode, useContext, useState} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 export type GlobalDialogData = {
 	title: string
 	content?: ReactNode
 	disabledOk?: boolean
 	disabledCancel?: boolean
+	disabledTitle?: boolean
 	okText?: string
 	cancelText?: string
+	ContainerCls?: string
 	onSubmit?: () => void | Promise<void>
 	onCancel?: () => void | Promise<void>
 }

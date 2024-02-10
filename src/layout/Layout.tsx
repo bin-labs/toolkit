@@ -2,7 +2,7 @@ import { ToolGroupData, UserToolGroup, UserToolItem } from "@/components/tool";
 import { useAllTools } from "@/hooks/tool";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useApp } from "@/context";
 import { DataMenu, MenuItemData } from "@/components/data-menu";
 import { TooGroupDialogValue, UserToolGroupDialog } from "@/components/tool/UserToolGroupDialog";
